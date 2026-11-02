@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uma pergunta importante</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1117;
+  color: #c9d1d9;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: min(95vw, 850px);
+}
+
+.terminal {
+  flex: 1;
+  min-width: 0;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
+
+.bar {
+  color: #8b949e;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.comment { color: #8b949e; }
+.keyword { color: #ff7b72; }
+.string { color: #a5d6ff; }
+
+h1 {
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  font-weight: normal;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+  min-height: 52px;
+  align-items: center;
+}
+
+button {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 25px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+#sim {
+  background: #238636;
+  color: white;
+}
+
+#sim:hover { background: #2ea043; }
+
+#nao {
+  background: #da3633;
+  color: white;
+}
+
+#resposta {
+  margin-top: 24px;
+  font-size: 16px;
+  color: #3fb950;
+  min-height: 45px;
+  line-height: 1.5;
+}
+
+.luffy {
+  width: 220px;
+  max-height: 390px;
+  object-fit: contain;
+  animation: flutuar 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255,255,255,.1));
+}
+
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@media(max-width: 600px) {
+  .container {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .terminal {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .luffy {
+    width: 125px;
+    max-height: 170px;
+  }
+
+  h1 { font-size: 15px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="terminal">
+    <div class="bar">● ● ● &nbsp; convite.js</div>
+
+    <h1>
+      <span class="comment">// pergunta importante</span><br>
+      <span class="keyword">if</span> (voce.aceitar()) {<br>
+      &nbsp;&nbsp;<span class="string">"Vai ser minha futura mulher e mandar em mim?"</span><br>
+      }
+    </h1>
+
+    <div class="buttons">
+      <button id="sim">Sim</button>
+      <button id="nao">Não</button>
+    </div>
+
+    <div id="resposta"></div>
+  </div>
+
+  <img
+    class="luffy"
+    src="https://www.kindpng.com/picc/m/38-380559_monkey-d-luffy-luffy-one-piece-transparent-hd.png"
+    alt="Monkey D. Luffy"
+  >
+
+</div>
+
+<script>
+const sim = document.getElementById("sim");
+const nao = document.getElementById("nao");
+const resposta = document.getElementById("resposta");
+
+let fugas = 0;
+
+const textos = [
+  "Erro 404: resposta 'Não' não encontrada",
+  "NullPointerException: 'Não' é null",
+  "Tente novamente...",
+  "Esse botão tem bugs 🐛",
+  "O Luffy não aceita essa resposta! 😂"
+];
+
+function fugir() {
+  fugas++;
+
+  nao.style.position = "fixed";
+
+  const maxX = Math.max(0, window.innerWidth - nao.offsetWidth - 10);
+  const maxY = Math.max(0, window.innerHeight - nao.offsetHeight - 10);
+
+  nao.style.left = Math.random() * maxX + "px";
+  nao.style.top = Math.random() * maxY + "px";
+
+  resposta.style.color = "#d29922";
+  resposta.textContent = textos[fugas % textos.length];
+}
+
+nao.addEventListener("mouseover", fugir);
+
+nao.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  fugir();
+});
+
+nao.addEventListener("click", dizerSim);
+
+sim.addEventListener("click", dizerSim);
+
+function dizerSim() {
+  nao.style.display = "none";
+  sim.style.display = "none";
+
+  resposta.style.color = "#3fb950";
+  resposta.innerHTML =
+    'return "Sim"; 💚<br><br>Sim, isso foi bem gay? 😂❤️';
+}
+</script>
+
+</body>
+</html>
